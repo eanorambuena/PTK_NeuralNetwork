@@ -1,19 +1,5 @@
 import numpy as np
-
-def sigmoid(x):
-  return 1.0/(1.0 + np.exp(-x))
-
-def sigmoid_der(x):
-  return sigmoid(x)*(1.0-sigmoid(x))
-
-def tanh(x):
-  return np.tanh(x)
-
-def tanh_der(x):
-  return 1.0 - x**2
-
-def rand():
-  return np.random.rand()
+from functions import *
 
 class LogFile:
   def __init__(self):
@@ -42,11 +28,6 @@ class LogFile:
         elif k[i]=='.' or k[i].isalnum():
           t+=k[i]
   
-class Function:
-  def __init__(self,f,df):
-    self.f=f
-    self.d=df
-
 class Neuron:
   def __init__(self, size, activation='s'):
     self.size=size
@@ -59,10 +40,7 @@ class Neuron:
     for i in range(0,self.size):
       self.w.append(rand())
   def setactf(self,activation):
-    if activation == 's':
-      self.a=Function(sigmoid,sigmoid_der)
-    elif activation == 'tanh':
-      self.a=Function(tanh,tanh_der)
+    self.a=setactivation(activation)
   def memorize(self):
     self.log=LogFile()
     self.log.row("B")
